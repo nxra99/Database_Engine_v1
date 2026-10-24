@@ -1,0 +1,14 @@
+sanity 1 0.00849156
+new 0 0
+page 0 0
+new file starts with just the header page 0 0
+allocate hands out page ids in order 0 0
+page count survives reopening 0 0
+page data survives reopening 0 0
+a file too short to hold a header is reported 1 0.0119798
+a header saying 0 pages is rejected 1 0.0101413
+---
+new file starts with just the header page
+allocate hands out page ids in order
+page count survives reopening
+page data survives reopening

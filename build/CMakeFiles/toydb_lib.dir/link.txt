@@ -1,0 +1,2 @@
+/usr/bin/ar qc libtoydb_lib.a CMakeFiles/toydb_lib.dir/src/storage/disk_manager.cpp.o CMakeFiles/toydb_lib.dir/src/Status.cpp.o CMakeFiles/toydb_lib.dir/src/storage/page.cpp.o CMakeFiles/toydb_lib.dir/src/storage/slottedpage.cpp.o CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o
+/usr/bin/ranlib libtoydb_lib.a

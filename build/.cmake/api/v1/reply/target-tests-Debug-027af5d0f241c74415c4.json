@@ -1,0 +1,224 @@
+{
+	"artifacts" : 
+	[
+		{
+			"path" : "src/tests/tests"
+		}
+	],
+	"backtrace" : 1,
+	"backtraceGraph" : 
+	{
+		"commands" : 
+		[
+			"add_executable",
+			"target_link_options",
+			"target_link_libraries",
+			"target_compile_options"
+		],
+		"files" : 
+		[
+			"src/tests/CMakeLists.txt",
+			"build/_deps/catch2-src/src/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			},
+			{
+				"command" : 0,
+				"file" : 0,
+				"line" : 1,
+				"parent" : 0
+			},
+			{
+				"command" : 1,
+				"file" : 0,
+				"line" : 12,
+				"parent" : 0
+			},
+			{
+				"command" : 2,
+				"file" : 0,
+				"line" : 3,
+				"parent" : 0
+			},
+			{
+				"file" : 1
+			},
+			{
+				"command" : 2,
+				"file" : 1,
+				"line" : 410,
+				"parent" : 4
+			},
+			{
+				"command" : 3,
+				"file" : 0,
+				"line" : 8,
+				"parent" : 0
+			}
+		]
+	},
+	"compileGroups" : 
+	[
+		{
+			"compileCommandFragments" : 
+			[
+				{
+					"fragment" : "-g -std=c++20"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fsanitize=address"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-fsanitize=undefined"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-g"
+				},
+				{
+					"backtrace" : 6,
+					"fragment" : "-O0"
+				}
+			],
+			"includes" : 
+			[
+				{
+					"backtrace" : 3,
+					"path" : "/home/nara/tdb_v1/src"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/nara/tdb_v1/src/storage/header_files"
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/nara/tdb_v1/build/_deps/catch2-src/src/catch2/.."
+				},
+				{
+					"backtrace" : 3,
+					"path" : "/home/nara/tdb_v1/build/_deps/catch2-build/generated-includes"
+				}
+			],
+			"language" : "CXX",
+			"languageStandard" : 
+			{
+				"backtraces" : 
+				[
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3,
+					3
+				],
+				"standard" : "20"
+			},
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"dependencies" : 
+	[
+		{
+			"backtrace" : 3,
+			"id" : "toydb_lib::@6890427a1f51a3e7e1df"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Catch2::@fa92aa50e9bf5e1a7206"
+		},
+		{
+			"backtrace" : 3,
+			"id" : "Catch2WithMain::@fa92aa50e9bf5e1a7206"
+		}
+	],
+	"id" : "tests::@08b4cb1648a15a99be29",
+	"link" : 
+	{
+		"commandFragments" : 
+		[
+			{
+				"fragment" : "-g",
+				"role" : "flags"
+			},
+			{
+				"fragment" : "",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-fsanitize=address",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 2,
+				"fragment" : "-fsanitize=undefined",
+				"role" : "flags"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../../libtoydb_lib.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 3,
+				"fragment" : "../../_deps/catch2-build/src/libCatch2Maind.a",
+				"role" : "libraries"
+			},
+			{
+				"backtrace" : 5,
+				"fragment" : "../../_deps/catch2-build/src/libCatch2d.a",
+				"role" : "libraries"
+			}
+		],
+		"language" : "CXX"
+	},
+	"name" : "tests",
+	"nameOnDisk" : "tests",
+	"paths" : 
+	{
+		"build" : "src/tests",
+		"source" : "src/tests"
+	},
+	"sourceGroups" : 
+	[
+		{
+			"name" : "Source Files",
+			"sourceIndexes" : 
+			[
+				0
+			]
+		}
+	],
+	"sources" : 
+	[
+		{
+			"backtrace" : 1,
+			"compileGroupIndex" : 0,
+			"path" : "src/tests/tests.cpp",
+			"sourceGroupIndex" : 0
+		}
+	],
+	"type" : "EXECUTABLE"
+}

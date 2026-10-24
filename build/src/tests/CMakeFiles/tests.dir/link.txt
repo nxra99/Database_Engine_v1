@@ -1,0 +1,1 @@
+/usr/bin/g++ -g -fsanitize=address -fsanitize=undefined CMakeFiles/tests.dir/tests.cpp.o -o tests  ../../libtoydb_lib.a ../../_deps/catch2-build/src/libCatch2Maind.a ../../_deps/catch2-build/src/libCatch2d.a 

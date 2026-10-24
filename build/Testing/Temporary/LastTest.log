@@ -1,0 +1,107 @@
+Start testing: Oct 23 21:37 BST
+----------------------------------------------------------
+1/6 Testing: new file starts with just the header page
+1/6 Test: new file starts with just the header page
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "new file starts with just the header page"
+Directory: /home/nara/tdb_v1/build/src/tests
+"new file starts with just the header page" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+/home/nara/tdb_v1/src/storage/disk_manager.cpp:65:8: runtime error: execution reached the end of a value-returning function without returning a value
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"new file starts with just the header page" end time: Oct 23 21:37 BST
+"new file starts with just the header page" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/6 Testing: allocate hands out page ids in order
+2/6 Test: allocate hands out page ids in order
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "allocate hands out page ids in order"
+Directory: /home/nara/tdb_v1/build/src/tests
+"allocate hands out page ids in order" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+/home/nara/tdb_v1/src/storage/disk_manager.cpp:65:8: runtime error: execution reached the end of a value-returning function without returning a value
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"allocate hands out page ids in order" end time: Oct 23 21:37 BST
+"allocate hands out page ids in order" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/6 Testing: page count survives reopening
+3/6 Test: page count survives reopening
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "page count survives reopening"
+Directory: /home/nara/tdb_v1/build/src/tests
+"page count survives reopening" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+/home/nara/tdb_v1/src/storage/disk_manager.cpp:65:8: runtime error: execution reached the end of a value-returning function without returning a value
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"page count survives reopening" end time: Oct 23 21:37 BST
+"page count survives reopening" time elapsed: 00:00:00
+----------------------------------------------------------
+
+4/6 Testing: page data survives reopening
+4/6 Test: page data survives reopening
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "page data survives reopening"
+Directory: /home/nara/tdb_v1/build/src/tests
+"page data survives reopening" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+/home/nara/tdb_v1/src/storage/disk_manager.cpp:65:8: runtime error: execution reached the end of a value-returning function without returning a value
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Failed.
+"page data survives reopening" end time: Oct 23 21:37 BST
+"page data survives reopening" time elapsed: 00:00:00
+----------------------------------------------------------
+
+5/6 Testing: a file too short to hold a header is reported
+5/6 Test: a file too short to hold a header is reported
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "a file too short to hold a header is reported"
+Directory: /home/nara/tdb_v1/build/src/tests
+"a file too short to hold a header is reported" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+Filters: "a file too short to hold a header is reported"
+Randomness seeded to: 1993865987
+===============================================================================
+All tests passed (2 assertions in 1 test case)
+
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"a file too short to hold a header is reported" end time: Oct 23 21:37 BST
+"a file too short to hold a header is reported" time elapsed: 00:00:00
+----------------------------------------------------------
+
+6/6 Testing: a header saying 0 pages is rejected
+6/6 Test: a header saying 0 pages is rejected
+Command: "/home/nara/tdb_v1/build/src/tests/tests" "a header saying 0 pages is rejected"
+Directory: /home/nara/tdb_v1/build/src/tests
+"a header saying 0 pages is rejected" start time: Oct 23 21:37 BST
+Output:
+----------------------------------------------------------
+Filters: "a header saying 0 pages is rejected"
+Randomness seeded to: 2639366590
+===============================================================================
+All tests passed (1 assertion in 1 test case)
+
+<end of output>
+Test time =   0.01 sec
+----------------------------------------------------------
+Test Passed.
+"a header saying 0 pages is rejected" end time: Oct 23 21:37 BST
+"a header saying 0 pages is rejected" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 23 21:37 BST

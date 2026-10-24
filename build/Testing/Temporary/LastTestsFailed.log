@@ -1,0 +1,4 @@
+1:new file starts with just the header page
+2:allocate hands out page ids in order
+3:page count survives reopening
+4:page data survives reopening

@@ -1,0 +1,3 @@
+/home/nara/tdb_v1/build/_deps/catch2-subbuild/CMakeFiles/catch2-populate.dir
+/home/nara/tdb_v1/build/_deps/catch2-subbuild/CMakeFiles/edit_cache.dir
+/home/nara/tdb_v1/build/_deps/catch2-subbuild/CMakeFiles/rebuild_cache.dir
