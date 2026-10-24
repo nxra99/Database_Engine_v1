@@ -2,6 +2,8 @@
 #include <filesystem>
 #include <fstream>
 #include "disk_manager.h"
+#include "page.h"
+#include "slottedpage.h"
 
 // ---------------------------------------------------------------------------
 // Test versions of RETURN_IF_ERROR / ASSIGN_OR_RETURN.
@@ -53,7 +55,7 @@ static void write_raw(const std::string& path, const std::vector<u8>& bytes)
 
 TEST_CASE("new file starts with just the header page", "[disk]") {
     std::string path = fresh_db("tdb_new.db");
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
 
     auto result = disk->read_header();
     REQUIRE(result.ok());
@@ -67,7 +69,7 @@ TEST_CASE("new file starts with just the header page", "[disk]") {
 
 TEST_CASE("allocate hands out page ids in order", "[disk]") {
     std::string path = fresh_db("tdb_alloc.db");
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
 
     ASSIGN_OR_REQUIRE(u32 first, disk->allocate());
     ASSIGN_OR_REQUIRE(u32 second, disk->allocate());
@@ -82,13 +84,13 @@ TEST_CASE("allocate hands out page ids in order", "[disk]") {
 TEST_CASE("page count survives reopening", "[disk]") {
     std::string path = fresh_db("tdb_reopen.db");
     {
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
     ASSIGN_OR_REQUIRE(u32 page, disk->allocate());
     REQUIRE(page == 1);
     }
 
     {
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
     ASSIGN_OR_REQUIRE(u32 count, disk->read_header());
     REQUIRE(count == 2);  // header page + page 1
 
@@ -100,7 +102,7 @@ TEST_CASE("page count survives reopening", "[disk]") {
     REQUIRE(page == 2);
     }
 
-    std::unique_ptr<disk_manager> disk_ = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk_, disk_manager::open_path(path));
     ASSIGN_OR_REQUIRE(u32 count, disk_->read_header());
     REQUIRE(count == 3);
     REQUIRE(std::filesystem::file_size(path) == 3 * PAGE_SIZE);
@@ -114,12 +116,12 @@ TEST_CASE("page data survives reopening", "[disk]") {
     u32 page{};
 
     {
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
     ASSIGN_OR_REQUIRE(page, disk->allocate());  // assigning to an existing variable works too
     REQUIRE(disk->write_page(written.data(), page) == PAGE_SIZE);
     }
 
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
+    ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
     std::array<u8, PAGE_SIZE> read_back{};
     REQUIRE(disk->read_page(read_back.data(), page) == PAGE_SIZE);
     REQUIRE((read_back == written));  // extra brackets: on failure Catch2 prints "false" instead of all 4096 bytes
@@ -132,10 +134,9 @@ TEST_CASE("a file too short to hold a header is reported", "[disk][errors]") {
     std::string path = fresh_db("tdb_short.db");
     write_raw(path, std::vector<u8>(10, 0xAB));
 
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
-    
-    // here we WANT an error, so keep the StatusOr and look inside it
-    StatusOr<u32> result = disk->read_header();
+    // here we WANT an error, so keep the StatusOr and look inside it.
+    // open_path reads the header, so a broken file is reported right here
+    StatusOr<std::unique_ptr<disk_manager>> result = disk_manager::open_path(path);
     INFO("status was: " << result.status().to_string());  // printed only if a check below fails
     REQUIRE_FALSE(result.ok());
     REQUIRE(result.status().is_not_found());
@@ -144,10 +145,25 @@ TEST_CASE("a file too short to hold a header is reported", "[disk][errors]") {
 TEST_CASE("a header saying 0 pages is rejected", "[disk][errors]") {
     std::string path = fresh_db("tdb_zero.db");
     write_raw(path, std::vector<u8>(PAGE_SIZE, 0));
-    std::unique_ptr<disk_manager> disk = std::make_unique<disk_manager>(path);
 
-    StatusOr<u32> result = disk->read_header();
+    StatusOr<std::unique_ptr<disk_manager>> result = disk_manager::open_path(path);
     INFO("status was: " << result.status().to_string());
     REQUIRE_FALSE(result.ok());
+}
+
+TEST_CASE("page error rec", "[Page]")
+{
+	page_header header = {0, 0xFFFF, page_type::SLOTTED_PAGE, 0, PAGE_SIZE, HEADER_SIZE, PAGE_SIZE - HEADER_SIZE};
+	std::unique_ptr<page> pg = std::make_unique<page>(header);
+	{
+	slotted_page spg(pg.get());
+	record rec;
+	std::array<u8, 50> record_buffer{};
+	rec = {record_buffer.data(),  50};
+	REQUIRE_OK(spg.add_record(rec));	
+	}
+
+	REQUIRE(pg->get_free_lower() == HEADER_SIZE + SLOT_SIZE);
+	REQUIRE(pg->get_slot_count() == 1);
 }
 

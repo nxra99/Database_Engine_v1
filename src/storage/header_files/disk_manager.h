@@ -1,13 +1,15 @@
 #pragma once
 
-#include "typdefs.h"
+#include "serialisation.h"
 #include "StatusOr.h"
+
 
 
 class disk_manager
 {
 public:
-  explicit disk_manager(std::string path = "data/data.db");
+  // use this instead of a constructor: a constructor can't return a Status, this can
+  static StatusOr<std::unique_ptr<disk_manager>> open_path(std::string path = "data/data.db");
   ~disk_manager();
 
   // owns fd, so a copy would close the same file twice
@@ -21,8 +23,11 @@ public:
   StatusOr<u32> read_header(); //just reads current page count.
 
 private:
+  disk_manager(std::string path, int file_fd); //only open_path() can create one
+
   const std::string file_path;
   int fd = -1;
   u32 total_page_count = 0; //includes the header page, so a fresh file has 1
   std::array<u8, PAGE_SIZE> header_page{}; //in-memory copy of page 0
 };
+

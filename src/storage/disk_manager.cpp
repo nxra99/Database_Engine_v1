@@ -1,30 +1,44 @@
 #include "disk_manager.h"
 
 #include <cerrno>
+#include <cstring>
 #include <filesystem>
 #include <stdexcept>
 #include <system_error>
 
-
-disk_manager::disk_manager(std::string path) : file_path(std::move(path))
+StatusOr<std::unique_ptr<disk_manager>> disk_manager::open_path(std::string path)
 {
-  std::filesystem::path parent = std::filesystem::path(file_path).parent_path();
-  if (!parent.empty()) std::filesystem::create_directories(parent);
+  // create_directories throws on failure; the error_code version reports it instead
+  std::error_code ec;
+  std::filesystem::path parent = std::filesystem::path(path).parent_path();
+  if (!parent.empty()) std::filesystem::create_directories(parent, ec);
+  if (ec) return Status::IO_error("create folder " + parent.string(), ec.message());
 
-  fd = open(file_path.c_str(), O_RDWR | O_CREAT, 0644);
-  assert(fd >= 0);
-  
-  off_t size = lseek(fd, 0, SEEK_END);
+  int file_fd = open(path.c_str(), O_RDWR | O_CREAT, 0644);
+  if (file_fd < 0) return Status::IO_error("open " + path, std::strerror(errno));
+
+  // make_unique can't call a private constructor, so use new directly.
+  // from here on, an early return closes file_fd through the destructor
+  std::unique_ptr<disk_manager> disk(new disk_manager(std::move(path), file_fd));
+
+  off_t size = lseek(file_fd, 0, SEEK_END);
+  if (size < 0) return Status::IO_error("lseek " + disk->file_path, std::strerror(errno));
+
   if (size == 0)
   {
-    total_page_count = 1;  
-    write_header();
+    disk->total_page_count = 1;
+    RETURN_IF_ERROR(disk->write_header());
   }
   else
   {
-    read_header();  
+    // read_header() sets total_page_count itself; we only need to pass on its error
+    RETURN_IF_ERROR(disk->read_header().status());
   }
+
+  return disk;
 }
+
+disk_manager::disk_manager(std::string path, int file_fd) : file_path(std::move(path)), fd(file_fd) {}
 
 disk_manager::~disk_manager()
 {

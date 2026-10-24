@@ -22,7 +22,6 @@ list(APPEND CMAKE_MODULE_PATH ${catch2_SOURCE_DIR}/extras)
 add_library(toydb_lib
   # src/storage/page.cpp
   src/storage/disk_manager.cpp
-  serialisation.h
   src/Status.h
   src/StatusOr.h
   src/Status.cpp
@@ -33,6 +32,8 @@ add_library(toydb_lib
   src/storage/header_files/buffer_pool.h
   src/storage/buffer_pool.cpp
   # src/storage/buffer_pool.cpp
+  src/serialisation.h
+  src/typdefs.h
 )
 
 target_include_directories(toydb_lib PUBLIC

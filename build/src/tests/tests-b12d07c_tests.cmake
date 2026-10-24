@@ -10,4 +10,6 @@ add_test( [==[a file too short to hold a header is reported]==] /home/nara/tdb_v
 set_tests_properties( [==[a file too short to hold a header is reported]==] PROPERTIES WORKING_DIRECTORY /home/nara/tdb_v1/build/src/tests)
 add_test( [==[a header saying 0 pages is rejected]==] /home/nara/tdb_v1/build/src/tests/tests [==[a header saying 0 pages is rejected]==]  )
 set_tests_properties( [==[a header saying 0 pages is rejected]==] PROPERTIES WORKING_DIRECTORY /home/nara/tdb_v1/build/src/tests)
-set( tests_TESTS [==[new file starts with just the header page]==] [==[allocate hands out page ids in order]==] [==[page count survives reopening]==] [==[page data survives reopening]==] [==[a file too short to hold a header is reported]==] [==[a header saying 0 pages is rejected]==])
+add_test( [==[page error rec]==] /home/nara/tdb_v1/build/src/tests/tests [==[page error rec]==]  )
+set_tests_properties( [==[page error rec]==] PROPERTIES WORKING_DIRECTORY /home/nara/tdb_v1/build/src/tests)
+set( tests_TESTS [==[new file starts with just the header page]==] [==[allocate hands out page ids in order]==] [==[page count survives reopening]==] [==[page data survives reopening]==] [==[a file too short to hold a header is reported]==] [==[a header saying 0 pages is rejected]==] [==[page error rec]==])

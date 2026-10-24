@@ -1,1 +1,70 @@
+
+#pragma once
 //frame, bufferpool
+//TODO:: rebuild logical architecture here...
+#include "disk_manager.h"
+#include "slottedpage.h"
+
+constexpr u8 FRAME_SIZE = 10;
+
+//frame: 
+struct frame
+{
+  page _page; //page has a default constructor
+  u32 page_id = 0xffffffff;
+  u32 pin_count = 0;
+  bool ref_bit = 0;
+  bool is_dirty = false;
+  bool is_live = false;
+};
+
+class page_guard;
+
+class buffer_pool
+{
+  public:
+  buffer_pool(disk_manager* disk);
+  void new_page();
+  StatusOr<page_guard> fetch_page(u32 page_id);
+  StatusOr<FIDX> get_frame_idx(u32 page_id); //lookup
+  
+  //clock replacement
+  StatusOr<FIDX> victim(); 
+  StatusOr<FIDX> evict();
+  StatusOr<FIDX> get_free_frame();
+  
+  //frame/page modifications:
+  Status mark_dirty(u32 page_id, bool dirty);
+  Status pin_frame(u32 page_id);
+  Status unpin_frame(u32 page_id);
+  Status flush_page(u32 page_id);
+  Status flush_dirty_pages();
+  
+  private:
+  std::array<frame, FRAME_SIZE> frames;
+  disk_manager* disk;
+  std::unordered_map<u32, FIDX> map; //page_id to frame_idx
+  
+  u8 get_live_frames(); //count live frames
+  void null_frame(FIDX frame_idx); //nullify a frame
+  bool is_live(FIDX frame_id);
+  
+  
+  void advance_hand(); //advance hand  
+  FIDX hand = 0; //clock hand
+};
+
+class page_guard
+{
+public:
+~page_guard(); //unpin_page on frame
+page* get();
+
+page_guard(const page_guard& OTHER) = delete;
+page_guard& operator= (const page_guard& OTHER) = delete;
+
+private:
+  page* pg;
+  u32 page_id;
+  buffer_pool* pool;
+};
