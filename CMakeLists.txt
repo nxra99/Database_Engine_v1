@@ -35,6 +35,7 @@ add_library(toydb_lib
   src/serialisation.h
   src/typdefs.h
   src/storage/header_files/heap_file.h
+  src/storage/heap_file.cpp
 )
 
 target_include_directories(toydb_lib PUBLIC

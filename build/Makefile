@@ -614,6 +614,30 @@ src/storage/disk_manager.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles/toydb_lib.dir/build.make CMakeFiles/toydb_lib.dir/src/storage/disk_manager.cpp.s
 .PHONY : src/storage/disk_manager.cpp.s
 
+src/storage/heap_file.o: src/storage/heap_file.cpp.o
+.PHONY : src/storage/heap_file.o
+
+# target to build an object file
+src/storage/heap_file.cpp.o:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/toydb_lib.dir/build.make CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o
+.PHONY : src/storage/heap_file.cpp.o
+
+src/storage/heap_file.i: src/storage/heap_file.cpp.i
+.PHONY : src/storage/heap_file.i
+
+# target to preprocess a source file
+src/storage/heap_file.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/toydb_lib.dir/build.make CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.i
+.PHONY : src/storage/heap_file.cpp.i
+
+src/storage/heap_file.s: src/storage/heap_file.cpp.s
+.PHONY : src/storage/heap_file.s
+
+# target to generate assembly for a file
+src/storage/heap_file.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles/toydb_lib.dir/build.make CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.s
+.PHONY : src/storage/heap_file.cpp.s
+
 src/storage/page.o: src/storage/page.cpp.o
 .PHONY : src/storage/page.o
 
@@ -712,6 +736,9 @@ help:
 	@echo "... src/storage/disk_manager.o"
 	@echo "... src/storage/disk_manager.i"
 	@echo "... src/storage/disk_manager.s"
+	@echo "... src/storage/heap_file.o"
+	@echo "... src/storage/heap_file.i"
+	@echo "... src/storage/heap_file.s"
 	@echo "... src/storage/page.o"
 	@echo "... src/storage/page.i"
 	@echo "... src/storage/page.s"

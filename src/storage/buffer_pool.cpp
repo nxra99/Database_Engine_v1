@@ -5,7 +5,7 @@ buffer_pool::buffer_pool(disk_manager* disk)
   this->disk = disk;  
 }
 
-StatusOr<FIDX> buffer_pool::new_page()
+StatusOr<u32> buffer_pool::new_page()
 {
   //FYI:: first test, frames are currently free
   FIDX idx = UINT8_MAX;
@@ -36,7 +36,7 @@ StatusOr<FIDX> buffer_pool::new_page()
 
   map[page_id] = idx;
   
-  return idx;
+  return page_id;
 }
 
 StatusOr<page_guard> buffer_pool::fetch_page(u32 page_id)

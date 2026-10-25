@@ -5,6 +5,8 @@ file(REMOVE_RECURSE
   "CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o.d"
   "CMakeFiles/toydb_lib.dir/src/storage/disk_manager.cpp.o"
   "CMakeFiles/toydb_lib.dir/src/storage/disk_manager.cpp.o.d"
+  "CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o"
+  "CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o.d"
   "CMakeFiles/toydb_lib.dir/src/storage/page.cpp.o"
   "CMakeFiles/toydb_lib.dir/src/storage/page.cpp.o.d"
   "CMakeFiles/toydb_lib.dir/src/storage/slottedpage.cpp.o"

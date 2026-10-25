@@ -24,7 +24,7 @@ class buffer_pool
 {
 public:
   buffer_pool(disk_manager* disk);
-  StatusOr<FIDX> new_page();
+  StatusOr<u32> new_page();
   StatusOr<page_guard> fetch_page(u32 page_id);
   StatusOr<FIDX> get_frame_idx(u32 page_id); //lookup
   bool is_live(FIDX frame_id);

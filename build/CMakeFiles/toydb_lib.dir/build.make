@@ -139,13 +139,28 @@ CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.s"
 	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nara/tdb_v1/src/storage/buffer_pool.cpp -o CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.s
 
+CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o: CMakeFiles/toydb_lib.dir/flags.make
+CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o: /home/nara/tdb_v1/src/storage/heap_file.cpp
+CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o: CMakeFiles/toydb_lib.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --progress-dir=/home/nara/tdb_v1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Building CXX object CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o -MF CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o.d -o CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o -c /home/nara/tdb_v1/src/storage/heap_file.cpp
+
+CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Preprocessing CXX source to CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.i"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/nara/tdb_v1/src/storage/heap_file.cpp > CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.i
+
+CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green "Compiling CXX source to assembly CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.s"
+	/usr/bin/g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/nara/tdb_v1/src/storage/heap_file.cpp -o CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.s
+
 # Object files for target toydb_lib
 toydb_lib_OBJECTS = \
 "CMakeFiles/toydb_lib.dir/src/storage/disk_manager.cpp.o" \
 "CMakeFiles/toydb_lib.dir/src/Status.cpp.o" \
 "CMakeFiles/toydb_lib.dir/src/storage/page.cpp.o" \
 "CMakeFiles/toydb_lib.dir/src/storage/slottedpage.cpp.o" \
-"CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o"
+"CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o" \
+"CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o"
 
 # External object files for target toydb_lib
 toydb_lib_EXTERNAL_OBJECTS =
@@ -155,9 +170,10 @@ libtoydb_lib.a: CMakeFiles/toydb_lib.dir/src/Status.cpp.o
 libtoydb_lib.a: CMakeFiles/toydb_lib.dir/src/storage/page.cpp.o
 libtoydb_lib.a: CMakeFiles/toydb_lib.dir/src/storage/slottedpage.cpp.o
 libtoydb_lib.a: CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o
+libtoydb_lib.a: CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o
 libtoydb_lib.a: CMakeFiles/toydb_lib.dir/build.make
 libtoydb_lib.a: CMakeFiles/toydb_lib.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nara/tdb_v1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library libtoydb_lib.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --green --bold --progress-dir=/home/nara/tdb_v1/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_7) "Linking CXX static library libtoydb_lib.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/toydb_lib.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/toydb_lib.dir/link.txt --verbose=$(VERBOSE)
 

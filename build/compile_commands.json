@@ -30,6 +30,12 @@
   "output": "CMakeFiles/toydb_lib.dir/src/storage/buffer_pool.cpp.o"
 },
 {
+  "directory": "/home/nara/tdb_v1/build",
+  "command": "/usr/bin/g++  -I/home/nara/tdb_v1/src -I/home/nara/tdb_v1/src/storage/header_files -g -std=c++20 -Wall -Wextra -Wpedantic -fsanitize=address -fsanitize=undefined -g -O0 -o CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o -c /home/nara/tdb_v1/src/storage/heap_file.cpp",
+  "file": "/home/nara/tdb_v1/src/storage/heap_file.cpp",
+  "output": "CMakeFiles/toydb_lib.dir/src/storage/heap_file.cpp.o"
+},
+{
   "directory": "/home/nara/tdb_v1/build/_deps/catch2-build/src",
   "command": "/usr/bin/g++  -I/home/nara/tdb_v1/build/_deps/catch2-src/src/catch2/.. -I/home/nara/tdb_v1/build/_deps/catch2-build/generated-includes -g -std=c++20 -ffile-prefix-map=/home/nara/tdb_v1/build/_deps/catch2-src/= -o CMakeFiles/Catch2.dir/catch2/benchmark/catch_chronometer.cpp.o -c /home/nara/tdb_v1/build/_deps/catch2-src/src/catch2/benchmark/catch_chronometer.cpp",
   "file": "/home/nara/tdb_v1/build/_deps/catch2-src/src/catch2/benchmark/catch_chronometer.cpp",

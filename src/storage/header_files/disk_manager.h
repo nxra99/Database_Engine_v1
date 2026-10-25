@@ -24,7 +24,7 @@ public:
 
 private:
   disk_manager(std::string path, int file_fd); //only open_path() can create one
-
+  
   const std::string file_path;
   int fd = -1;
   u32 total_page_count = 0; //includes the header page, so a fresh file has 1
