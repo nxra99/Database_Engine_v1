@@ -17,7 +17,7 @@ public:
   disk_manager& operator=(const disk_manager&) = delete;
 
   Status write_header(); //writes total_page_count into page 0
-  ssize_t write_page(u8* page_buffer, u32 page_id);
+  ssize_t write_page(const u8* page_buffer, u32 page_id);
   ssize_t read_page(u8* page_buffer, u32 page_id); //buffer here is an output parameter
   StatusOr<u32> allocate(); //returns the id of the new page
   StatusOr<u32> read_header(); //just reads current page count.

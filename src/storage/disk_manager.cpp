@@ -46,11 +46,12 @@ disk_manager::~disk_manager()
   close(fd);
 }
 
-ssize_t disk_manager::write_page(u8* page_buffer, u32 page_id)
+ssize_t disk_manager::write_page(const u8* page_buffer, u32 page_id)
 {
   off_t offset = static_cast<off_t>(page_id) * PAGE_SIZE;
   ssize_t write = pwrite(fd, page_buffer, PAGE_SIZE, offset);
 
+  
   return write;
 }
 

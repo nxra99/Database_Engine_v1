@@ -7,9 +7,14 @@ page::page(page_header& header) //explicit
   write_header(header);
 }
 
-u8* page::get_buffer()
+const u8* page::get_buffer() const
 {
   return buffer.data();
+}
+
+void page::load_from(const u8* src)
+{
+  memcpy(buffer.data(), src, PAGE_SIZE);
 }
 
 page_header page::get_header() const
@@ -27,6 +32,17 @@ void page::write_header(page_header& header)
   write_free_upper(header.free_upper);
   write_free_lower(header.free_lower);
   write_free_space(header.free_space);
+}
+
+void page::reset_header()
+{
+  write_page_id(0xffffffff);   
+  write_next_page_id(0xffffffff);
+  write_page_type(page_type::NONE);
+  write_slot_count(0);
+  write_free_upper(4096);
+  write_free_lower(24);
+  write_free_space(4096-24);
 }
 
 
@@ -98,4 +114,9 @@ u16 page::get_free_space() const
 void page::write_free_space(u16 value)
 {
   write_u16_le(buffer.data() + 16, value);
+}
+
+u8* page::mutate_buffer()
+{
+  return buffer.data();
 }

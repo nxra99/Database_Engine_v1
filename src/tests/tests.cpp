@@ -4,14 +4,13 @@
 #include "disk_manager.h"
 #include "page.h"
 #include "slottedpage.h"
+#include "buffer_pool.h"
 
-// ---------------------------------------------------------------------------
 // Test versions of RETURN_IF_ERROR / ASSIGN_OR_RETURN.
 //
 // Those two pass an error UP to whoever called the function (`return status;`).
 // A TEST_CASE has nobody to return a Status to (it returns void), so these do
 // the test equivalent instead: FAIL right here, printing which call failed and why.
-// ---------------------------------------------------------------------------
 
 // For calls that return a plain Status:
 //   REQUIRE_OK(disk->write_header());
@@ -166,4 +165,30 @@ TEST_CASE("page error rec", "[Page]")
 	REQUIRE(pg->get_free_lower() == HEADER_SIZE + SLOT_SIZE);
 	REQUIRE(pg->get_slot_count() == 1);
 }
+
+TEST_CASE("buffer pool new page", "[buffer_pool]")
+{
+	// setup: an empty database file, and a disk_manager that owns it
+	std::string path = fresh_db("tdb_buffer_pool.db");
+	ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
+
+	// disk.get() is the plain disk_manager* your buffer_pool constructor takes
+	buffer_pool pool(disk.get());
+	
+	for (int i = 0; i < 10; i++)
+	{
+		ASSIGN_OR_REQUIRE(FIDX idx, pool.new_page());
+	}
+
+	REQUIRE(pool.is_live(9));
+
+	// ASSIGN_OR_REQUIRE(FIDX idx, pool->evict());
+	// REQUIRE(pool->is_live(1));
+
+	ASSIGN_OR_REQUIRE(page_guard pguard, pool.fetch_page(4));
+	page* pg = pguard.get();
+	REQUIRE(pg->get_page_id() == 4);
+	
+}	
+
 

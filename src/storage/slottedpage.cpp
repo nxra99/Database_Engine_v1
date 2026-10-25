@@ -3,6 +3,7 @@
 slotted_page::slotted_page (page* pg)
 {
   this->pg = pg;
+  // pg->write_page_type(page_type::SLOTTED_PAGE);
 }
 
 Status slotted_page::add_record (record& rec)
@@ -13,7 +14,7 @@ Status slotted_page::add_record (record& rec)
     return Status::corruption("insufficient space to store record on page");
   }
 
-  u8* buffer = pg->get_buffer();
+  u8* buffer = pg->mutate_buffer();
   u16 free_lower = pg->get_free_lower();
   u16 slot_count = pg->get_slot_count();
   u16 slot_id = slot_count + 1;
@@ -44,7 +45,7 @@ Status slotted_page::add_record (record& rec)
 
 StatusOr<record> slotted_page::get_record (u16 slot_id)
 {
-  u8* buffer = pg->get_buffer();
+  u8* buffer = pg->mutate_buffer();
   u16 slot_count = pg->get_slot_count();
   
   if (slot_id > slot_count)
@@ -67,14 +68,14 @@ StatusOr<record> slotted_page::get_record (u16 slot_id)
 Status slotted_page::delete_record(u16 slot_id)
 {
   //strictly make slot not alive
-  u8* buffer = pg->get_buffer();
+  u8* buffer = pg->mutate_buffer();
   u16 slot_count = pg->get_slot_count();
   
   if (slot_id > slot_count)
   {
     return Status::not_found("slot_id does not exist");
   }
-
+  
   u16 offset = 24 + (slot_id * SLOT_SIZE);
   write_u16_le(buffer + offset + 6, false); 
   
