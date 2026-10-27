@@ -5,6 +5,7 @@
 #include "page.h"
 #include "slottedpage.h"
 #include "buffer_pool.h"
+#include "heap_file.h"
 
 // Test versions of RETURN_IF_ERROR / ASSIGN_OR_RETURN.
 //
@@ -159,7 +160,7 @@ TEST_CASE("page error rec", "[Page]")
 	record rec;
 	std::array<u8, 50> record_buffer{};
 	rec = {record_buffer.data(),  50};
-	REQUIRE_OK(spg.add_record(rec));	
+	ASSIGN_OR_REQUIRE(u16 slot_id, spg.add_record(rec));
 	}
 
 	REQUIRE(pg->get_free_lower() == HEADER_SIZE + SLOT_SIZE);
@@ -188,7 +189,43 @@ TEST_CASE("buffer pool new page", "[buffer_pool]")
 	ASSIGN_OR_REQUIRE(page_guard pguard, pool.fetch_page(4));
 	page* pg = pguard.get();
 	REQUIRE(pg->get_page_id() == 4);
-	
+
 }	
 
+TEST_CASE("heap_file", "[MVP]")
+{
+	std::string path = fresh_db("tdb_buffer_pool.db");
+	ASSIGN_OR_REQUIRE(std::unique_ptr<disk_manager> disk, disk_manager::open_path(path));
+
+	buffer_pool pool(disk.get());
+	
+	for (int i = 0; i < 10; i++)
+	{
+		ASSIGN_OR_REQUIRE(FIDX idx, pool.new_page());
+	}
+
+	// heap file
+	ASSIGN_OR_REQUIRE(std::unique_ptr<heap_file> hf, heap_file::create_heap_file(&pool));
+	REQUIRE_OK(hf->add_page());
+	
+	REQUIRE(hf->get_first_pg_id() == 11);
+	REQUIRE(hf->get_last_pg_id() == 12);
+	
+	std::array<u8, 500> buffer{};
+	record rec = {buffer.data(), 500};
+	ASSIGN_OR_REQUIRE(RID rid, hf->insert(rec));
+	ASSIGN_OR_REQUIRE(RID _rid, hf->insert(rec));
+
+
+	REQUIRE_OK(pool.flush_dirty_pages());
+
+	ASSIGN_OR_REQUIRE(record _rec, hf->get(rid));
+
+	u8* new_data = new u8[300];
+	record  __rec = {new_data, 300};
+		
+	REQUIRE_OK(hf->update(rid, __rec));
+	
+	delete[] new_data;
+}
 

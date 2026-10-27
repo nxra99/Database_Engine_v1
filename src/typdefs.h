@@ -27,7 +27,7 @@ typedef uint8_t FIDX;
 typedef uint32_t PGID;
 
 constexpr u32 PAGE_SIZE = 4096;
-constexpr u16 HEADER_SIZE = 24;
+constexpr u16 HEADER_SIZE = 20;
 constexpr u16 SLOT_SIZE = 10;
 
 

@@ -36,6 +36,7 @@ add_library(toydb_lib
   src/typdefs.h
   src/storage/header_files/heap_file.h
   src/storage/heap_file.cpp
+  src/storage/header_files/catalog.h
 )
 
 target_include_directories(toydb_lib PUBLIC

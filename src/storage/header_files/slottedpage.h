@@ -24,11 +24,14 @@ public:
   
   slotted_page(page* pg);
   
-  Status add_record(record& rec);
-  StatusOr<record> get_record(u16 slot_id);
+  StatusOr<u16> add_record(record& rec); //returns slot_id
+  StatusOr<const record> get_record(u16 slot_id);
   Status delete_record(u16 slot_id);
-
+  Status update_record(u16 slot_id, record& rec);
+  
+  
 private:
   page* pg;
+  StatusOr<slot> get_slot(u16 slot_id);
 };
 

@@ -21,11 +21,21 @@ page 0 0
 a 0 0
 a 0 0
 page 0 0
-new file starts with just the header page 1 0.0102471
-allocate hands out page ids in order 1 0.00966931
-page count survives reopening 1 0.0106018
-page data survives reopening 1 0.00951519
-a file too short to hold a header is reported 1 0.0102492
-a header saying 0 pages is rejected 1 0.0108176
-page error rec 1 0.00867022
+new 0 0
+allocate 0 0
+page 0 0
+page 0 0
+a 0 0
+a 0 0
+page 0 0
+new file starts with just the header page 1 0.0177002
+allocate hands out page ids in order 1 0.0133722
+page count survives reopening 1 0.0131571
+page data survives reopening 1 0.012593
+a file too short to hold a header is reported 1 0.0126228
+a header saying 0 pages is rejected 1 0.0124992
+page error rec 1 0.0115626
+buffer pool new page 1 0.0117669
+heap_file 0 0
 ---
+heap_file

@@ -42,12 +42,11 @@ StatusOr<u32> buffer_pool::new_page()
 StatusOr<page_guard> buffer_pool::fetch_page(u32 page_id)
 {
  StatusOr<FIDX> lookup = get_frame_idx(page_id);
- if (lookup.ok())
+ if (lookup.ok() && is_live(*lookup))
  {
     FIDX idx = *lookup;
     frames[idx].pin_count++;
     frames[idx].ref_bit = true;
-    
     page_guard pguard (&frames[idx].pg, page_id, this, idx);
     return pguard;  
   }

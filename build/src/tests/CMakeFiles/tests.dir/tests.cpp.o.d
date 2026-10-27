@@ -302,4 +302,5 @@ src/tests/CMakeFiles/tests.dir/tests.cpp.o: \
  /home/nara/tdb_v1/src/Status.h \
  /home/nara/tdb_v1/src/storage/header_files/page.h \
  /home/nara/tdb_v1/src/storage/header_files/slottedpage.h \
- /home/nara/tdb_v1/src/storage/header_files/buffer_pool.h
+ /home/nara/tdb_v1/src/storage/header_files/buffer_pool.h \
+ /home/nara/tdb_v1/src/storage/header_files/heap_file.h
